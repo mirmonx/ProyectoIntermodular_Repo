@@ -15,21 +15,33 @@ public class PantallaNombre : MonoBehaviour
     // variable estática para guardar el nombre y usarlo en otras escenas
     public static string nombreMascota;
 
+<<<<<<< Updated upstream
     // URL de ruta que he creado en js
     string url = "http://localhost:8080/guardarMascota";
 
 
+=======
+    //url del backend para guardarlo
+    string url = "http://localhost:8080/guardarMascota";
+
+>>>>>>> Stashed changes
     public void GuardarNombre()
     {
         // guardo el nombre 
         nombreMascota = inputNombre.text;
 
+<<<<<<< Updated upstream
         // mensaje por pantalla
+=======
+        DatosMascota.nombre = inputNombre.text;//para guardarloi en el empty script y que nos muestre datos generales
+
+>>>>>>> Stashed changes
         textoTitulo.text = "Hola!!! Encantado/a de conocerte " + nombreMascota;
 
         // se ve el nombre en la consola de unity
         Debug.Log("Nombre introducido: " + nombreMascota);
 
+<<<<<<< Updated upstream
         // envio el nombre al backend
         StartCoroutine(EnviarNombre());
 
@@ -40,6 +52,43 @@ public class PantallaNombre : MonoBehaviour
 
     // corrutina para enviar datos al servidor
     IEnumerator EnviarNombre()
+=======
+        //envio al backend
+        StartCoroutine(EnviarNombre());
+
+        // cambio de escena 
+        StartCoroutine(CambiarEscena()); //funcion para ejecutar y pausar el juego
+    }
+
+    // corrutina para enviar datos al servidor
+    IEnumerator EnviarNombre()
+    {
+        WWWForm form = new WWWForm();
+
+        // envio los datos de la mascota
+        form.AddField("nombre", DatosMascota.nombre);
+        form.AddField("animal", DatosMascota.animal);
+        form.AddField("detalle", DatosMascota.detalle);
+
+        // creo la peticion POST
+        UnityWebRequest request = UnityWebRequest.Post(url, form);
+
+        // envío la petición y espero respuesta
+        yield return request.SendWebRequest();
+
+        // si todo ha ido bien
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            Debug.Log("Respuesta servidor: " + request.downloadHandler.text);
+        }
+        else
+        {
+            Debug.Log("Error: " + request.error);
+        }
+    }
+
+    IEnumerator CambiarEscena() //he puesto IENUMERATOR porque es una funcion que se ejecuta por partes 
+>>>>>>> Stashed changes
     {
         // formulario para enviar datos (POST)
         WWWForm form = new WWWForm();

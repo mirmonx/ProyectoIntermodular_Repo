@@ -14,15 +14,22 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Register.unity
     guid: 8c2f1e3ebb2190f409e21765129a93d9
+<<<<<<< Updated upstream
   - enabled: 1
     path: Assets/Scenes/GatoOperro.unity
     guid: 7467064290c9e3e489d43a3e1887f47f
   - enabled: 1
+=======
+  - enabled: 0
+>>>>>>> Stashed changes
     path: Assets/Scenes/Quizz.unity
     guid: 46ec74f68320f1042bfc161436f6a578
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/PetName.unity
     guid: 9ef9a2cc1f5442841ac12cbc6b40f017
+  - enabled: 1
+    path: Assets/Scenes/GatoOperro.unity
+    guid: 7467064290c9e3e489d43a3e1887f47f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
