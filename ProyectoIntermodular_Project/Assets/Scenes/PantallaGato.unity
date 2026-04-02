@@ -426,7 +426,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1224039414}
         m_TargetAssemblyTypeName: PantallaGato, Assembly-CSharp
-        m_MethodName: PeloMediano
+        m_MethodName: PeloCorto
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -531,7 +531,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Mediano
+  m_text: Corto
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d9151460b000d7d41a333f1f2f4fa4c2, type: 2}
   m_sharedMaterial: {fileID: -5838577204969717070, guid: d9151460b000d7d41a333f1f2f4fa4c2, type: 2}
@@ -1303,7 +1303,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1224039414}
         m_TargetAssemblyTypeName: PantallaGato, Assembly-CSharp
-        m_MethodName: PeloCorto
+        m_MethodName: PeloCalvo
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1408,7 +1408,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Corto
+  m_text: Calvo
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d9151460b000d7d41a333f1f2f4fa4c2, type: 2}
   m_sharedMaterial: {fileID: -5838577204969717070, guid: d9151460b000d7d41a333f1f2f4fa4c2, type: 2}
