@@ -1,61 +1,75 @@
 const { Router } = require("express");
-const router = Router(); //es el router donde voy guardando mis rutas
+const router = Router(); // Router para guardar todas las rutas
 
-// Rutas usando GET
-router.get("/", (req, res) => {
-  console.log("Alguien ha iniciado la app"); //muestro por consola un mensaje
-  res.send("Hola, bienvenido, soy tu agente virtual que te acompañará"); //esto es lo que se ve en el front de mi pagina
-});
+//rutas GET
 
+// pantalla inicial (gato o perro)
 router.get("/inicio", (req, res) => {
-  console.log("acaban de acceder a inicio");
-  res.send("Encantado de vernos de nuevo");
+  console.log("Acceso a pantalla inicio"); // mensaje en consola cuando alguien entra
+  res.json({ mensaje: "¿Eres un gatito o un perrito?" }); // lo que se manda al frontend
 });
 
+// pantalla juego (más adelante abrirá cámara)
+router.get("/juego", (req, res) => {
+  console.log("Acceso al juego");
+  res.json({ mensaje: "Bienvenido a Guess Mew" });
+});
+
+// pantalla introducir nombre mascota
 router.get("/perfilMascota", (req, res) => {
-  console.log("acaban de acceder al perfil de su mascota");
-  res.send("Tu mascota está pendiente de su desparasitación.");
+  console.log("Acceso a perfil mascota");
+  res.json({ mensaje: "Introduce el nombre de tu mascota" });
 });
 
-router.get("/historialMedico", (req, res) => {
-  console.log("Acaban de acceder a su historial médico");
-  res.send("Tu mascota tiene 22 anotaciones médicas");
+//rutas POST
+
+// cuando el usuario selecciona gato o perro
+router.post("/seleccionAnimal", (req, res) => {
+  console.log("Animal seleccionado:", req.body);
+  // aquí recibo algo como { animal: "gato" o "perro" }
+
+  res.json({ msg: "Animal seleccionado correctamente" }); // respuesta al frontend
 });
 
-router.get("/deteccionMascota", (req, res) => {
-  console.log("Acaban de acceder al juego de deteccion de mascota");
-  res.send("Que mascota vamos a detectar, perro o gato?");
+// cuando el usuario elige el tipo de gato (corto, mediano, largo)
+router.post("/tipoGato", (req, res) => {
+  console.log("Tipo de gato:", req.body);
+  // { tipo: "corto" / "mediano" / "largo" }
+
+  res.json({ msg: "Tipo de pelaje de gato guardado correctamente" });
 });
 
-//pongo 5 rutas post como pide el ejercicio
-//la primera por ejemplo para recibir cuando alguien ha hecho login
-router.post("/holaPOST", (req, res) => {
-  console.log(req.body);
-  res.json({ msg: "Login recibido" });
+// 🐶 cuando el usuario elige el tamaño del perro (pequeño, mediano, grande)
+router.post("/tipoPerro", (req, res) => {
+  console.log("Tamaño del perro:", req.body);
+  // { tamano: "pequeño" / "mediano" / "grande" }
+
+  res.json({ msg: "Tamaño del perro guardado correctamente" });
 });
 
-//otra para cuando hace un registro de una mascota
+// cuando el usuario introduce el nombre de la mascota
+router.post("/nombreMascota", (req, res) => {
+  console.log("Nombre mascota:", req.body);
+  // { nombre: "Luna" }
+
+  res.json({ msg: "Nombre guardado correctamente" });
+});
+
+// guardo toda la información de la mascota junta (nombre + tipo + detalle)
+router.post("/guardarMascota", (req, res) => {
+  console.log("Mascota completa:", req.body);
+  // { nombre: "Luna", tipo: "gato", detalle: "corto" }
+
+  res.json({ msg: "Mascota guardada correctamente" });
+});
+
+// cuando el usuario crea una cuenta
 router.post("/registro", (req, res) => {
-  console.log(req.body);
-  res.json({ msg: "Mascota inscrita con exito" });
+  console.log("Registro usuario:", req.body);
+  // { name: "...", email: "...", password: "..." }
+
+  res.json({ msg: "Usuario registrado correctamente" });
 });
 
-//para que diga cuando ha enviado mensaje
-router.post("/contacto", (req, res) => {
-  console.log(req.body);
-  res.json({ msg: "Mensaje sobre su mascota recibido con exito" });
-});
-
-//lo mismo para salud nueva de una mascota
-router.post("/comentario", (req, res) => {
-  console.log(req.body);
-  res.json({ msg: "Nuevos datos en la salud de la mascota" });
-});
-
-//para cuando recibo un nuevo animal en mi pagina
-router.post("/pedido", (req, res) => {
-  console.log(req.body);
-  res.json({ msg: "Animal nuevo recibido" });
-});
-
-module.exports = router; //exporto las rutas para que las pueda usar
+// exporto el router para poder usarlo en js
+module.exports = router;
