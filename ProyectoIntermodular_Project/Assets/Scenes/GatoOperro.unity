@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2744082129100581882, guid: addc884913261d746948e2489feb2996, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5e8ad3a122bd6df43a537a419873363e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -253,8 +253,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\xBFEres un gatito o un perrito?"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d9151460b000d7d41a333f1f2f4fa4c2, type: 2}
+  m_sharedMaterial: {fileID: 5879773660926508689, guid: d9151460b000d7d41a333f1f2f4fa4c2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -681,7 +681,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8396226, g: 0.8356621, b: 0.8394375, a: 1}
+  m_Color: {r: 0.5764706, g: 0.4392157, b: 0.8588236, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -852,8 +852,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d9151460b000d7d41a333f1f2f4fa4c2, type: 2}
+  m_sharedMaterial: {fileID: 5879773660926508689, guid: d9151460b000d7d41a333f1f2f4fa4c2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -986,7 +986,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -119.56956, y: -78.473}
-  m_SizeDelta: {x: 167.1391, y: 198.96}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1594251492
 MonoBehaviour:
@@ -1057,7 +1057,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.49803925, g: 0.49803925, b: 0.49803925, a: 1}
+  m_Color: {r: 1, g: 0.9803922, b: 0.9803922, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1066,7 +1066,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 472334706256767940, guid: 43f0f99d223a9744fb18926ce1315a18, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -1139,7 +1139,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 472334706256767940, guid: 234b6de888f5b6c4bbcfacef3e742fe4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 43f0f99d223a9744fb18926ce1315a18, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
