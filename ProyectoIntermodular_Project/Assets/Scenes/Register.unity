@@ -774,7 +774,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 451504860}
         m_TargetAssemblyTypeName: ChangeScenes, Assembly-CSharp
-        m_MethodName: LogIn
+        m_MethodName: Name
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

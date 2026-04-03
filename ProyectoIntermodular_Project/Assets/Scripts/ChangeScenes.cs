@@ -14,12 +14,12 @@ public class ChangeScenes : MonoBehaviour
 
     public void Quizz()
     {
-        SceneManager.LoadScene("Quizz");
+        SceneManager.LoadScene("GatoOperro");
     }
 
     public void Name()
     {
-        SceneManager.LoadScene("PetName");
+        SceneManager.LoadScene("NombreMascota");
     }
      public void Home()
     {
