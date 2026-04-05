@@ -1,60 +1,91 @@
-using UnityEngine;
-using TMPro;
-using System.IO;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LoginScript : MonoBehaviour
 {
     public TMP_InputField inputEmail;
     public TMP_InputField inputPassword;
+    public TMP_Text contraseñaGuardada;
+    public TMP_Text contraseñaNoGuardada;
+
 
     private string rutaArchivo;
 
     void Awake()
     {
-        // Usamos la misma ruta y nombre de archivo que en el Registro
         rutaArchivo = $"{Application.persistentDataPath}/usuarios_bd.json";
     }
 
     public void IniciarSesion()
     {
+        StartCoroutine(IniciarSesionConEspera());
+    }
+
+    IEnumerator IniciarSesionConEspera()
+    {
         // 1. Validar campos vacíos
         if (string.IsNullOrEmpty(inputEmail.text) || string.IsNullOrEmpty(inputPassword.text))
         {
             Debug.LogError("Login fallido: Por favor, rellena todos los campos.");
-            return;
+            if (contraseñaNoGuardada != null)
+                contraseñaGuardada.text = "";
+                contraseñaNoGuardada.text = "";
+                contraseñaNoGuardada.text = "Rellena todos los campos";
+            yield break;
         }
 
-        // 2. Comprobar si existe el archivo de la base de datos
+        // 2. Comprobar si existe el archivo
         if (!File.Exists(rutaArchivo))
         {
             Debug.LogError("Error: No hay ningún usuario registrado todavía.");
-            return;
+            if (contraseñaNoGuardada != null)
+                contraseñaGuardada.text = "";
+            contraseñaNoGuardada.text = "";
+            contraseñaNoGuardada.text = "No hay usuarios registrados";
+            yield break;
         }
 
-        // 3. Cargar la base de datos (bd) desde el JSON
+        // 3. Leer la base de datos JSON
         string contenidoJson = File.ReadAllText(rutaArchivo);
         ListaUsuarios bd = JsonUtility.FromJson<ListaUsuarios>(contenidoJson);
 
-        // 4. Buscar coincidencia en la lista
         bool encontrado = false;
 
+        // 4. Buscar usuario
         foreach (Usuario u in bd.usuarios)
         {
-            // Comparamos los datos del JSON con los que el usuario escribió ahora
             if (u.email == inputEmail.text && u.password == inputPassword.text)
             {
                 encontrado = true;
                 Debug.Log($"¡Login exitoso! Bienvenido, {u.nombre}.");
 
-                break; // Salimos del bucle porque ya encontramos al usuario
+                if (contraseñaGuardada != null)
+                    contraseñaGuardada.text = "";
+                contraseñaNoGuardada.text = "";
+                contraseñaGuardada.text = "Login exitoso";
+
+                // Esperamos 1 segundo antes de cambiar de escena
+                yield return new WaitForSeconds(1f);
+
+                // Cargamos la siguiente escena
+                SceneManager.LoadScene("NombreMascota");
+
+                yield break;
             }
         }
 
-        // 5. Si terminó de buscar y no encontró nada
+        // 5. Si no se encontró
         if (!encontrado)
         {
             Debug.LogError("Login fallido: El email o la contraseña son incorrectos.");
+            if (contraseñaNoGuardada != null)
+                contraseñaGuardada.text = "";
+            contraseñaNoGuardada.text = "";
+            contraseñaNoGuardada.text = "Email o contraseña incorrectos";
         }
     }
 }

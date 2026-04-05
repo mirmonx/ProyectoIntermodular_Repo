@@ -1,11 +1,22 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class CambiarEscenas : MonoBehaviour
 {
+    public void IrConRetraso()
+    {
+        StartCoroutine(EsperarYCambiar());
+    }
+
+    IEnumerator EsperarYCambiar()
+    {
+        yield return new WaitForSeconds(2f); // espera 2 segundos
+        SceneManager.LoadScene("Login");
+    }
     public void Ir_LogIn()
     {
-        SceneManager.LoadScene("Login");
+        StartCoroutine(EsperarYCambiar());
 }
     public void Ir_Registrar()
     {
@@ -35,5 +46,10 @@ public class CambiarEscenas : MonoBehaviour
     public void Ir_Home() //Página principal Guess Mew
     {
         SceneManager.LoadScene("Home");
+    }
+
+    public void Ir_RecuperarContraseña()
+    {
+        SceneManager.LoadScene("RecuperarContraseña");
     }
 }

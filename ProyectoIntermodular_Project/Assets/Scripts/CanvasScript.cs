@@ -14,7 +14,7 @@ public class CanvasScript : MonoBehaviour
 
     public void Welcome()
     {      
-        textWelcome.text = "¡Bienvenido a nuestra aplicación!";
+        textWelcome.text = "¡Bienvenido a nuestra aplicacion!";
     }
 
 }
