@@ -52,4 +52,15 @@ public class CambiarEscenas : MonoBehaviour
     {
         SceneManager.LoadScene("RecuperarContraseña");
     }
+
+    public void Ir_Perfil()
+    {
+        SceneManager.LoadScene("Perfil");
+    }
+
+    public void Ir_Petfil()
+    { 
+        SceneManager.LoadScene("Petfil");
+    }
+
 }
