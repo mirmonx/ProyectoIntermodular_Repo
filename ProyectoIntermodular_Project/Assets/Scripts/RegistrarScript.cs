@@ -1,77 +1,72 @@
 using UnityEngine;
 using TMPro;
-using System.IO;
-using System.Collections.Generic;
-using UnityEngine.UI;
+using UnityEngine.Networking;
+using System.Collections;
+using System.Text;
+using UnityEngine.SceneManagement;
 
-// --- REGISTRAR SCRIPT ---
+[System.Serializable]
+public class RespuestaRegistro
+{
+    public string msg;
+    public int usuario_id;
+}
+
 public class RegistrarScript : MonoBehaviour
 {
     public TMP_InputField inputNombre;
     public TMP_InputField inputEmail;
     public TMP_InputField inputPassword;
 
-    private string rutaArchivo;
-
-    void Awake() //es un paso previo a Start()
-    {
-        // Definimos la ruta base al arrancar
-        rutaArchivo = $"{Application.persistentDataPath}/usuarios_bd.json";
-    }
+    string url = "http://localhost:8080/registro";
 
     public void RegistrarUsuario()
     {
-        // 1. Validar campos vacíos
+        StartCoroutine(EnviarRegistro());
+    }
+
+    IEnumerator EnviarRegistro()
+    {
         if (string.IsNullOrEmpty(inputNombre.text) ||
             string.IsNullOrEmpty(inputEmail.text) ||
             string.IsNullOrEmpty(inputPassword.text))
         {
-            Debug.LogError("Registro fallido: Faltan campos por rellenar.");
-            return;
+            Debug.LogError("Faltan campos");
+            yield break;
         }
 
-        // 2. Cargar base de datos existente
-        ListaUsuarios bdActual = CargarBaseDeDatos(); //la bd será el json en nuestro caso
+        Usuario datos = new Usuario();
+        datos.nombre = inputNombre.text;
+        datos.email = inputEmail.text;
+        datos.password = inputPassword.text;
 
-        // 3. Crear nuevo usuario y añadirlo
-        Usuario nuevo = new Usuario();
-        nuevo.nombre = inputNombre.text;
-        nuevo.email = inputEmail.text;
-        nuevo.password = inputPassword.text;
+        string json = JsonUtility.ToJson(datos);
 
-        bdActual.usuarios.Add(nuevo);
+        UnityWebRequest request = new UnityWebRequest(url, "POST");
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
 
-        // 4. Guardar la lista actualizada
-        GuardarBaseDeDatos(bdActual);
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
 
-        // 5. Finalizar
-        LimpiarCampos();
-    }
+        yield return request.SendWebRequest();
 
-    private ListaUsuarios CargarBaseDeDatos()
-    {
-        if (File.Exists(rutaArchivo))
+        if (request.result == UnityWebRequest.Result.Success)
         {
-            string json = File.ReadAllText(rutaArchivo);
-            return JsonUtility.FromJson<ListaUsuarios>(json);
+            RespuestaRegistro respuesta = JsonUtility.FromJson<RespuestaRegistro>(request.downloadHandler.text);
+
+            Debug.Log("Usuario registrado ID: " + respuesta.usuario_id);
+
+            // guardamos usuario
+            PlayerPrefs.SetInt("usuario_id", respuesta.usuario_id);
+
+            // cambiar escena
+            SceneManager.LoadScene("NombreMascota");
         }
-        return new ListaUsuarios();
-    }
-
-    private void GuardarBaseDeDatos(ListaUsuarios bd)
-    {
-        string json = JsonUtility.ToJson(bd, true);
-
-        // Usamos la sintaxis limpia que querías
-        File.WriteAllText(rutaArchivo, json);
-
-        Debug.Log($"¡Registro exitoso! Datos guardados en: {rutaArchivo}");
-    }
-
-    private void LimpiarCampos()
-    {
-        inputNombre.text = "";
-        inputEmail.text = "";
-        inputPassword.text = "";
+        else
+        {
+            Debug.LogError("Error: " + request.error);
+            Debug.LogError("Detalle: " + request.downloadHandler.text);
+        }
     }
 }
