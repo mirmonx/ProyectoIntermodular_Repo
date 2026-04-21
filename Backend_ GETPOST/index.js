@@ -1,17 +1,19 @@
-const express = require("express");
-const app = express(); //cargo express y crea nuestra app
-const morgan = require("morgan");
+const express = require("express"); //creo el servidor
+const app = express(); //creo la aplicacion
+const morgan = require("morgan"); //para ver por consola
+const cors = require("cors"); //para conectarme con unity
 
-app.set("port", process.env.PORT || 8080); //para usar el puerto que le digo
+app.set("port", process.env.PORT || 8080); //puerto
 
-app.use(morgan("dev"));
+app.use(cors()); //peticiones externas (unity)
+app.use(morgan("dev")); //muestra por consola esas peticiones
+app.use(express.json()); //permite recibir datos modo json
+app.use(express.urlencoded({ extended: true })); //permite recibir datos de formularios
 
-app.use(express.json()); //para que entienda datos modo json
-app.use(express.urlencoded({ extended: true })); // leer datos de formularios y permite manejar datos complejos (como arrays)
+// conecta con mi archivo de rutas
+app.use(require("./indexRoutes"));
 
-app.use(require("./indexRoutes")); //conecto con las rutas que le he dado en el otro archivo y las usamos en la app
-
-// enciendo el servidor
+//inicio servidor
 app.listen(app.get("port"), () => {
-  console.log("hola desde el puerto " + app.get("port")); //muestro por pantalla que el puerto esta funcionando
+  console.log("Servidor funcionando en puerto: " + app.get("port"));
 });

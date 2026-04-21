@@ -1,91 +1,86 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using TMPro;
 using UnityEngine;
+using TMPro;
+using UnityEngine.Networking;
+using System.Collections;
+using System.Text;
 using UnityEngine.SceneManagement;
+
+
+// clase para leer respuesta del backend
+[System.Serializable]
+public class RespuestaLogin
+{
+    public int id;
+    public string nombre;
+    public string email;
+    public bool tieneMascota;
+}
 
 public class LoginScript : MonoBehaviour
 {
     public TMP_InputField inputEmail;
     public TMP_InputField inputPassword;
-    public TMP_Text contraseñaGuardada;
-    public TMP_Text contraseñaNoGuardada;
+    public TMP_Text textoError;
 
-
-    private string rutaArchivo;
-
-    void Awake()
-    {
-        rutaArchivo = $"{Application.persistentDataPath}/usuarios_bd.json";
-    }
+    string url = "http://localhost:8080/login";
 
     public void IniciarSesion()
     {
-        StartCoroutine(IniciarSesionConEspera());
+        StartCoroutine(Login());
     }
 
-    IEnumerator IniciarSesionConEspera()
+    IEnumerator Login()
     {
-        // 1. Validar campos vacíos
+        // validar campos
         if (string.IsNullOrEmpty(inputEmail.text) || string.IsNullOrEmpty(inputPassword.text))
         {
-            Debug.LogError("Login fallido: Por favor, rellena todos los campos.");
-            if (contraseñaNoGuardada != null)
-                contraseñaGuardada.text = "";
-                contraseñaNoGuardada.text = "";
-                contraseñaNoGuardada.text = "Rellena todos los campos";
+            textoError.text = "Rellena todos los campos";
             yield break;
         }
 
-        // 2. Comprobar si existe el archivo
-        if (!File.Exists(rutaArchivo))
+        // crear JSON
+        Usuario datos = new Usuario();
+        datos.email = inputEmail.text;
+        datos.password = inputPassword.text;
+
+        string json = JsonUtility.ToJson(datos);
+
+        // crear request
+        UnityWebRequest request = new UnityWebRequest(url, "POST");
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
+
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
         {
-            Debug.LogError("Error: No hay ningún usuario registrado todavía.");
-            if (contraseñaNoGuardada != null)
-                contraseñaGuardada.text = "";
-            contraseñaNoGuardada.text = "";
-            contraseñaNoGuardada.text = "No hay usuarios registrados";
-            yield break;
-        }
+            // convertir respuesta
+            RespuestaLogin usuario =
+                JsonUtility.FromJson<RespuestaLogin>(request.downloadHandler.text);
 
-        // 3. Leer la base de datos JSON
-        string contenidoJson = File.ReadAllText(rutaArchivo);
-        ListaUsuarios bd = JsonUtility.FromJson<ListaUsuarios>(contenidoJson);
+            Debug.Log("Login correcto. Usuario ID: " + usuario.id);
 
-        bool encontrado = false;
+            // guardar usuario logueado
+            PlayerPrefs.SetInt("usuario_id", usuario.id);
+            PlayerPrefs.Save(); 
 
-        // 4. Buscar usuario
-        foreach (Usuario u in bd.usuarios)
-        {
-            if (u.email == inputEmail.text && u.password == inputPassword.text)
+            
+            if (usuario.tieneMascota)
             {
-                encontrado = true;
-                Debug.Log($"¡Login exitoso! Bienvenido, {u.nombre}.");
-
-                if (contraseñaGuardada != null)
-                    contraseñaGuardada.text = "";
-                contraseñaNoGuardada.text = "";
-                contraseñaGuardada.text = "Login exitoso";
-
-                // Esperamos 1 segundo antes de cambiar de escena
-                yield return new WaitForSeconds(1f);
-
-                // Cargamos la siguiente escena
-                SceneManager.LoadScene("NombreMascota");
-
-                yield break;
+                SceneManager.LoadScene("Home"); // ya tiene mascota
+            }
+            else
+            {
+                SceneManager.LoadScene("NombreMascota"); // primera vez
             }
         }
-
-        // 5. Si no se encontró
-        if (!encontrado)
+        else
         {
-            Debug.LogError("Login fallido: El email o la contraseña son incorrectos.");
-            if (contraseñaNoGuardada != null)
-                contraseñaGuardada.text = "";
-            contraseñaNoGuardada.text = "";
-            contraseñaNoGuardada.text = "Email o contraseña incorrectos";
+            Debug.LogError("Error login: " + request.error);
+            textoError.text = "Email o contraseña incorrectos";
         }
     }
 }
