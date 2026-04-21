@@ -1,8 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using TMPro;
 using UnityEngine;
+using TMPro;
+using UnityEngine.Networking;
+using System.Collections;
+using System.Text;
 using UnityEngine.SceneManagement;
 
 public class RecuperarPasswordScript : MonoBehaviour
@@ -10,114 +10,72 @@ public class RecuperarPasswordScript : MonoBehaviour
     public TMP_InputField inputEmail;
     public TMP_InputField inputNuevaPassword;
     public TMP_InputField inputConfirmarPassword;
-    public TMP_Text contraseñaGuardada;
-    public TMP_Text contraseñaNoGuardada;
+    public TMP_Text textoMensaje;
 
-    private string rutaArchivo;
-
-    void Awake()
-    {
-        rutaArchivo = $"{Application.persistentDataPath}/usuarios_bd.json";
-    }
+    string url = "http://localhost:8080/recuperarPassword";
 
     public void GuardarNuevaPassword()
     {
-        StartCoroutine(GuardarPasswordYVolver());
+        StartCoroutine(EnviarNuevaPassword());
     }
 
-    IEnumerator GuardarPasswordYVolver()
+    IEnumerator EnviarNuevaPassword()
     {
-        // 1. Validar campos vacíos
+        textoMensaje.text = "";
+
+        // validar campos
         if (string.IsNullOrEmpty(inputEmail.text) ||
             string.IsNullOrEmpty(inputNuevaPassword.text) ||
             string.IsNullOrEmpty(inputConfirmarPassword.text))
         {
-            Debug.LogError("Recuperación fallida: Por favor, rellena todos los campos.");
-            if (contraseñaNoGuardada != null)
-                contraseñaGuardada.text = "";
-            contraseñaNoGuardada.text = "";
-            contraseñaNoGuardada.text = "Rellena todos los campos";
+            textoMensaje.text = "Rellena todos los campos";
             yield break;
         }
 
-        // 2. Validar coincidencia de contraseñas
         if (inputNuevaPassword.text != inputConfirmarPassword.text)
         {
-            Debug.LogError("Recuperación fallida: Las contraseñas no coinciden.");
-            if (contraseñaNoGuardada != null)
-                contraseñaGuardada.text = "";
-            contraseñaNoGuardada.text = "";
-            contraseñaNoGuardada.text = "Las contraseñas no coinciden";
+            textoMensaje.text = "Las contraseñas no coinciden";
             yield break;
         }
 
-        // 3. Validar longitud mínima
         if (inputNuevaPassword.text.Length < 4)
         {
-            Debug.LogError("Recuperación fallida: La nueva contraseña debe tener al menos 4 caracteres.");
-            if (contraseñaNoGuardada != null)
-                contraseñaGuardada.text = "";
-            contraseñaNoGuardada.text = "";
-            contraseñaNoGuardada.text = "Mínimo 4 caracteres";
+            textoMensaje.text = "Mínimo 4 caracteres";
             yield break;
         }
 
-        // 4. Comprobar si existe el archivo
-        if (!File.Exists(rutaArchivo))
+        // crear JSON
+        var datos = new
         {
-            Debug.LogError("Error: No existe la base de datos de usuarios.");
-            if (contraseñaNoGuardada != null)
-                contraseñaGuardada.text = "";
-            contraseñaNoGuardada.text = "";
-            contraseñaNoGuardada.text = "No existe base de datos";
-            yield break;
+            email = inputEmail.text,
+            nuevaPassword = inputNuevaPassword.text
+        };
+
+        string json = JsonUtility.ToJson(datos);
+
+        UnityWebRequest request = new UnityWebRequest(url, "POST");
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
+
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            Debug.Log("Contraseña actualizada");
+
+            textoMensaje.text = "Contraseña actualizada";
+
+            yield return new WaitForSeconds(2f);
+
+            SceneManager.LoadScene("Login");
         }
-
-        // 5. Leer JSON
-        string contenidoJson = File.ReadAllText(rutaArchivo);
-        ListaUsuarios bd = JsonUtility.FromJson<ListaUsuarios>(contenidoJson);
-
-        bool encontrado = false;
-
-        // 6. Buscar usuario por email
-        foreach (Usuario u in bd.usuarios)
+        else
         {
-            if (u.email == inputEmail.text)
-            {
-                encontrado = true;
-
-                // 7. Cambiar contraseña
-                u.password = inputNuevaPassword.text;
-
-                // 8. Guardar cambios
-                string nuevoJson = JsonUtility.ToJson(bd, true);
-                File.WriteAllText(rutaArchivo, nuevoJson);
-
-                Debug.Log($"Contraseña actualizada correctamente para el usuario con email: {u.email}");
-
-                if (contraseñaGuardada != null)
-                    contraseñaGuardada.text = "";
-                contraseñaNoGuardada.text = "";
-                contraseñaGuardada.text = "Contraseña actualizada correctamente";
-
-                // 9. Esperar antes de volver al login
-                yield return new WaitForSeconds(2f);
-
-                // 10. Cargar escena Login
-                SceneManager.LoadScene("Login");
-
-                yield break;
-            }
-        }
-
-        // 11. Si no encontró usuario
-        if (!encontrado)
-        {
-            Debug.LogError("Recuperación fallida: No existe ningún usuario con ese email.");
-            if (contraseñaNoGuardada != null)
-                contraseñaGuardada.text = "";
-            contraseñaNoGuardada.text = "";
-            contraseñaNoGuardada.text = "No existe ese email";
+            Debug.LogError("Error: " + request.downloadHandler.text);
+            textoMensaje.text = "Error o email no encontrado";
         }
     }
 }
