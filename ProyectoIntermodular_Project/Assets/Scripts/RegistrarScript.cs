@@ -18,7 +18,8 @@ public class RegistrarScript : MonoBehaviour
     public TMP_InputField inputEmail;
     public TMP_InputField inputPassword;
 
-    string url = "http://localhost:8080/registro";
+    //NGROK
+    string url = "https://rippling-sinless-margarita.ngrok-free.dev/registro";
 
     public void RegistrarUsuario()
     {
@@ -53,14 +54,14 @@ public class RegistrarScript : MonoBehaviour
 
         if (request.result == UnityWebRequest.Result.Success)
         {
-            RespuestaRegistro respuesta = JsonUtility.FromJson<RespuestaRegistro>(request.downloadHandler.text);
+            RespuestaRegistro respuesta =
+                JsonUtility.FromJson<RespuestaRegistro>(request.downloadHandler.text);
 
             Debug.Log("Usuario registrado ID: " + respuesta.usuario_id);
 
-            // guardamos usuario
             PlayerPrefs.SetInt("usuario_id", respuesta.usuario_id);
+            PlayerPrefs.Save();
 
-            // cambiar escena
             SceneManager.LoadScene("NombreMascota");
         }
         else

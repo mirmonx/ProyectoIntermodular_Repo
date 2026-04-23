@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class PantallaResumen : MonoBehaviour
 {
-    string url = "http://localhost:8080/guardarMascota";
+    //NGROK
+    string url = "https://rippling-sinless-margarita.ngrok-free.dev/guardarMascota";
 
     public void GuardarMascotaFinal()
     {
@@ -17,7 +18,6 @@ public class PantallaResumen : MonoBehaviour
     {
         int usuario_id = PlayerPrefs.GetInt("usuario_id");
 
-        // DEBUG
         Debug.Log("Nombre: " + DatosMascota.nombre);
         Debug.Log("Tipo: " + DatosMascota.tipo);
         Debug.Log("Pelaje: " + DatosMascota.pelaje);

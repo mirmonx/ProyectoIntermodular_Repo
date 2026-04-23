@@ -13,6 +13,10 @@ app.use(express.urlencoded({ extended: true })); //permite recibir datos de form
 // conecta con mi archivo de rutas
 app.use(require("./indexRoutes"));
 
+//envio datos JSON
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 //inicio servidor
 app.listen(app.get("port"), () => {
   console.log("Servidor funcionando en puerto: " + app.get("port"));
