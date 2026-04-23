@@ -1,0 +1,92 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\DAM\\Github\\ProyectoGrupal\\ProyectoIntermodular_Repo\\ProyectoIntermodular_Project\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|d:\\dam\\github\\proyectogrupal\\proyectointermodular_repo\\proyectointermodular_project\\assets\\scripts\\navegadorscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\navegadorscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|d:\\dam\\github\\proyectogrupal\\proyectointermodular_repo\\proyectointermodular_project\\assets\\scripts\\petfilscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\petfilscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|d:\\dam\\github\\proyectogrupal\\proyectointermodular_repo\\proyectointermodular_project\\assets\\scripts\\pantallaperroogato.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\pantallaperroogato.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\DAM\\Github\\ProyectoGrupal\\ProyectoIntermodular_Repo\\ProyectoIntermodular_Project\\Assets\\Scripts\\ClaseUsuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\ClaseUsuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "NavegadorScript.cs",
+              "DocumentMoniker": "D:\\DAM\\Github\\ProyectoGrupal\\ProyectoIntermodular_Repo\\ProyectoIntermodular_Project\\Assets\\Scripts\\NavegadorScript.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\NavegadorScript.cs",
+              "ToolTip": "D:\\DAM\\Github\\ProyectoGrupal\\ProyectoIntermodular_Repo\\ProyectoIntermodular_Project\\Assets\\Scripts\\NavegadorScript.cs",
+              "RelativeToolTip": "Assets\\Scripts\\NavegadorScript.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T21:27:41.634Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PetfilScript.cs",
+              "DocumentMoniker": "D:\\DAM\\Github\\ProyectoGrupal\\ProyectoIntermodular_Repo\\ProyectoIntermodular_Project\\Assets\\Scripts\\PetfilScript.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\PetfilScript.cs",
+              "ToolTip": "D:\\DAM\\Github\\ProyectoGrupal\\ProyectoIntermodular_Repo\\ProyectoIntermodular_Project\\Assets\\Scripts\\PetfilScript.cs",
+              "RelativeToolTip": "Assets\\Scripts\\PetfilScript.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-20T21:27:24.07Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PAntallaPerroOGato.cs",
+              "DocumentMoniker": "D:\\DAM\\Github\\ProyectoGrupal\\ProyectoIntermodular_Repo\\ProyectoIntermodular_Project\\Assets\\Scripts\\PAntallaPerroOGato.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\PAntallaPerroOGato.cs",
+              "ToolTip": "D:\\DAM\\Github\\ProyectoGrupal\\ProyectoIntermodular_Repo\\ProyectoIntermodular_Project\\Assets\\Scripts\\PAntallaPerroOGato.cs",
+              "RelativeToolTip": "Assets\\Scripts\\PAntallaPerroOGato.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T13:59:32.287Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ClaseUsuario.cs",
+              "DocumentMoniker": "D:\\DAM\\Github\\ProyectoGrupal\\ProyectoIntermodular_Repo\\ProyectoIntermodular_Project\\Assets\\Scripts\\ClaseUsuario.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\ClaseUsuario.cs",
+              "ToolTip": "D:\\DAM\\Github\\ProyectoGrupal\\ProyectoIntermodular_Repo\\ProyectoIntermodular_Project\\Assets\\Scripts\\ClaseUsuario.cs",
+              "RelativeToolTip": "Assets\\Scripts\\ClaseUsuario.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T14:26:55.248Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
