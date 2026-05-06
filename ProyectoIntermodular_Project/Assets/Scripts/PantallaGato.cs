@@ -14,10 +14,10 @@ public class PantallaGato : MonoBehaviour
     public void SeleccionarPelaje(string tipoPelo)
     {
         DatosMascota.pelaje = tipoPelo;
-        DatosMascota.tamano = "N/A"; // Los gatos no tienen tamaño en tu lógica
+        DatosMascota.size = "N/A"; // Los gatos no tienen tamaño en tu lógica
 
         if (textoPelo != null)
-            textoPelo.text = "Tu gato es " + tipoPelo;
+            textoPelo.text = "Tu gato tiene el pelo " + tipoPelo;
 
         Debug.Log("Guardando gato: " + DatosMascota.nombre + " con pelo " + tipoPelo);
 
@@ -28,12 +28,12 @@ public class PantallaGato : MonoBehaviour
     IEnumerator EnviarMascota()
     {
         // Creamos el objeto para el JSON
-        MascotaJSON info = new MascotaJSON();
+        MascotaGatoJSON info = new MascotaGatoJSON();
         info.nombre = DatosMascota.nombre;
         info.tipo_mascota = DatosMascota.tipo;
         info.pelaje = DatosMascota.pelaje;
-        info.tamano = DatosMascota.tamano;
-        info.usuario_id = PlayerPrefs.GetInt("usuario_id");
+        info.size = DatosMascota.size;
+        info.usuario_id = PlayerPrefs.GetInt("id_usuario");
 
         string json = JsonUtility.ToJson(info);
 
@@ -60,11 +60,11 @@ public class PantallaGato : MonoBehaviour
 
 // Clase auxiliar para el JSON (puedes ponerla al final del archivo)
 [System.Serializable]
-public class MascotaJSON
+public class MascotaGatoJSON
 {
     public string nombre;
     public string tipo_mascota;
     public string pelaje;
-    public string tamano;
+    public string size;
     public int usuario_id;
 }

@@ -23,7 +23,7 @@ public class PerfilScript : MonoBehaviour
     void Start()
     {
         // 1. Recuperamos el ID del usuario logueado
-        int idGuardado = PlayerPrefs.GetInt("usuario_id");
+        int idGuardado = PlayerPrefs.GetInt("id_usuario");
 
         if (idGuardado != 0)
         {
@@ -31,7 +31,7 @@ public class PerfilScript : MonoBehaviour
         }
         else
         {
-            Debug.LogError("No se encontró usuario_id. ¿Has hecho login?");
+            Debug.LogError("No se encontró su id_usuario. ¿Has hecho login?");
         }
     }
 

@@ -12,7 +12,7 @@ router.post("/login", (req, res) => {
   const { email, password } = req.body;
   console.log("Intento de login con:", email);
 
-  const sqlUsuario = "SELECT * FROM Usuarios WHERE email = ? AND password = ?";
+  const sqlUsuario = "SELECT * FROM usuarios WHERE email = ? AND password = ?";
 
   db.query(sqlUsuario, [email, password], (err, users) => {
     if (err) {
@@ -22,10 +22,10 @@ router.post("/login", (req, res) => {
 
     if (users.length > 0) {
       const usuario = users[0];
-      const userId = usuario.Id || usuario.id;
+      const userId = usuario.id;
 
-      // Buscamos si tiene algo en MASCOTAS
-      const sqlMascota = "SELECT * FROM MASCOTAS WHERE usuario_id = ?";
+      // Buscamos si tiene algo en mascotas
+      const sqlMascota = "SELECT * FROM mascotas WHERE id_usuario = ?";
       db.query(sqlMascota, [userId], (errM, pets) => {
         if (errM) {
           console.error("ERROR EN TABLA MASCOTAS:", errM.sqlMessage);
@@ -56,7 +56,7 @@ router.post("/registro", (req, res) => {
   const { nombre, email, password } = req.body;
   console.log("Intentando registrar a:", nombre);
 
-  const sql = "INSERT INTO Usuarios (nombre, email, password) VALUES (?, ?, ?)";
+  const sql = "INSERT INTO usuarios (nombre, email, password) VALUES (?, ?, ?)";
 
   db.query(sql, [nombre, email, password], (err, result) => {
     if (err) {
@@ -78,10 +78,10 @@ router.get("/perfil/:id", (req, res) => {
   console.log("Cargando perfil para ID:", userId);
 
   const sql = `
-        SELECT u.nombre AS usuario_nombre, m.nombre AS mascota_nombre, m.ID AS mascota_id, m.edad
-        FROM Usuarios u
-        LEFT JOIN MASCOTAS m ON u.Id = m.usuario_id
-        WHERE u.Id = ?
+        SELECT u.nombre AS usuario_nombre, m.nombre AS mascota_nombre, m.id AS mascota_id, m.edad
+        FROM usuarios u
+        LEFT JOIN mascotas m ON u.id = m.id_usuario
+        WHERE u.id = ?
     `;
 
   db.query(sql, [userId], (err, result) => {
@@ -100,14 +100,14 @@ router.get("/perfil/:id", (req, res) => {
 
 // --- 4. RUTA GUARDAR MASCOTA ---
 router.post("/guardar-mascota", (req, res) => {
-  const { nombre, tipo_mascota, usuario_id, pelaje, tamano, edad } = req.body;
+  const { nombre, tipo_mascota, usuario_id, pelaje, size, edad } = req.body;
 
-  const sql = `INSERT INTO MASCOTAS (nombre, tipo_mascota, usuario_id, pelaje, tamano, edad) 
+  const sql = `INSERT INTO mascotas (nombre, tipo_mascota, id_usuario, pelaje, size, edad) 
                  VALUES (?, ?, ?, ?, ?, ?)`;
 
   db.query(
     sql,
-    [nombre, tipo_mascota, usuario_id, pelaje, tamano, edad],
+    [nombre, tipo_mascota, usuario_id, pelaje, size, edad],
     (err, result) => {
       if (err) return res.status(500).json({ error: err.sqlMessage });
       res.status(201).json({ mensaje: "Mascota creada", id: result.insertId });
@@ -119,7 +119,7 @@ router.post("/guardar-mascota", (req, res) => {
 
 router.post("/actualizar-edad", (req, res) => {
   const { id, edad } = req.body; // 'edad' ahora será un string como "5 meses"
-  const sql = "UPDATE MASCOTAS SET edad = ? WHERE ID = ?";
+  const sql = "UPDATE mascotas SET edad = ? WHERE id = ?";
 
   db.query(sql, [edad, id], (err, result) => {
     if (err) {

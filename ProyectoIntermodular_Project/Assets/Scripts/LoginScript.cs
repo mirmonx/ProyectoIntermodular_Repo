@@ -66,7 +66,7 @@ public class LoginScript : MonoBehaviour
             Debug.Log("Login correcto. Usuario ID: " + usuario.id);
 
             // guardar usuario logueado
-            PlayerPrefs.SetInt("usuario_id", usuario.id);
+            PlayerPrefs.SetInt("id_usuario", usuario.id);
             PlayerPrefs.Save(); 
 
             

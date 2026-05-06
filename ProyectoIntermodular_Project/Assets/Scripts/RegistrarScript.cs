@@ -68,8 +68,8 @@ public class RegistrarScript : MonoBehaviour
 
             Debug.Log("Usuario registrado con ID: " + respuesta.id);
 
-            // Guardamos el ID para usarlo luego
-            PlayerPrefs.SetInt("usuario_id", respuesta.id);
+            // CAMBIO: Usamos "id_usuario" para que sea igual en todo el proyecto
+            PlayerPrefs.SetInt("id_usuario", respuesta.id);
             PlayerPrefs.Save();
 
             // Como es un registro nuevo, SEGURO que no tiene mascota
