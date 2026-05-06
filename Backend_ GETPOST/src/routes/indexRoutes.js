@@ -1,6 +1,11 @@
 const { Router } = require("express");
 const router = Router();
 const db = require("../config/db");
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
+
+const cloudinary = require("../config/cloudinary");
+const fs = require("fs");
 
 // --- 1. RUTA DE LOGIN ---
 router.post("/login", (req, res) => {
@@ -123,6 +128,25 @@ router.post("/actualizar-edad", (req, res) => {
     }
     res.status(200).json({ mensaje: "Edad actualizada correctamente" });
   });
+});
+
+// --- 6. CLOUDINARY ---
+router.post("/subir-foto", upload.single("imagen"), async (req, res) => {
+  try {
+    const resultado = await cloudinary.uploader.upload(req.file.path);
+
+    fs.unlinkSync(req.file.path);
+
+    res.status(200).json({
+      url: resultado.secure_url,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      error: "Error al subir imagen",
+    });
+  }
 });
 
 module.exports = router;
