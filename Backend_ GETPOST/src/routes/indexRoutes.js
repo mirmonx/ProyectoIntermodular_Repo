@@ -72,45 +72,51 @@ router.post("/registro", (req, res) => {
   });
 });
 
-// --- 3. RUTA DE PERFIL (Para la escena Home) ---
+// --- 3. RUTA DE PERFIL  ---
 router.get("/perfil/:id", (req, res) => {
   const userId = req.params.id;
-  console.log("Cargando perfil para ID:", userId);
 
+  // he añadido para que tambien coja la foto
   const sql = `
-        SELECT u.nombre AS usuario_nombre, m.nombre AS mascota_nombre, m.id AS mascota_id, m.edad
+        SELECT u.nombre AS usuario_nombre, m.nombre AS mascota_nombre, 
+               m.id AS mascota_id, m.edad, m.foto_url
         FROM usuarios u
         LEFT JOIN mascotas m ON u.id = m.id_usuario
         WHERE u.id = ?
     `;
 
   db.query(sql, [userId], (err, result) => {
-    if (err) {
-      console.error("Error en perfil:", err.sqlMessage);
-      return res.status(500).json({ error: err.sqlMessage });
-    }
+    if (err) return res.status(500).json({ error: err.sqlMessage });
 
     if (result.length > 0) {
-      res.status(200).json(result[0]);
+      res.status(200).json(result[0]); // Ahora esto incluye la URL de la foto
     } else {
       res.status(404).json({ mensaje: "Usuario no encontrado" });
     }
   });
 });
 
-// --- 4. RUTA GUARDAR MASCOTA ---
+// --- 4. RUTA GUARDAR MASCOTA ---(he añadido lo de cloudinary)
 router.post("/guardar-mascota", (req, res) => {
-  const { nombre, tipo_mascota, usuario_id, pelaje, size, edad } = req.body;
+  const { nombre, tipo_mascota, usuario_id, pelaje, size, edad, foto_url } =
+    req.body;
 
-  const sql = `INSERT INTO mascotas (nombre, tipo_mascota, id_usuario, pelaje, size, edad) 
-                 VALUES (?, ?, ?, ?, ?, ?)`;
+  const sql = `
+    INSERT INTO mascotas
+    (nombre, tipo_mascota, id_usuario, pelaje, size, edad, foto_url)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+  `;
 
   db.query(
     sql,
-    [nombre, tipo_mascota, usuario_id, pelaje, size, edad],
+    [nombre, tipo_mascota, usuario_id, pelaje, size, edad, foto_url],
     (err, result) => {
       if (err) return res.status(500).json({ error: err.sqlMessage });
-      res.status(201).json({ mensaje: "Mascota creada", id: result.insertId });
+
+      res.status(201).json({
+        mensaje: "Mascota creada",
+        id: result.insertId,
+      });
     },
   );
 });
@@ -133,12 +139,34 @@ router.post("/actualizar-edad", (req, res) => {
 // --- 6. CLOUDINARY ---
 router.post("/subir-foto", upload.single("imagen"), async (req, res) => {
   try {
+    //subo la imagen a Cloudinary
     const resultado = await cloudinary.uploader.upload(req.file.path);
 
+    // borro archivo temporal
     fs.unlinkSync(req.file.path);
 
-    res.status(200).json({
-      url: resultado.secure_url,
+    //URL
+    const fotoUrl = resultado.secure_url;
+
+    //id mascota
+    const mascotaId = req.body.mascota_id;
+
+    //guardo URL en MySQL
+    const sql = "UPDATE mascotas SET foto_url = ? WHERE id = ?";
+
+    db.query(sql, [fotoUrl, mascotaId], (err, result) => {
+      if (err) {
+        console.log(err);
+
+        return res.status(500).json({
+          error: err.sqlMessage,
+        });
+      }
+
+      res.status(200).json({
+        mensaje: "Foto subida correctamente",
+        url: fotoUrl,
+      });
     });
   } catch (error) {
     console.log(error);

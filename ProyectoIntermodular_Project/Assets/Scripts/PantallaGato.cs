@@ -34,6 +34,7 @@ public class PantallaGato : MonoBehaviour
         info.pelaje = DatosMascota.pelaje;
         info.size = DatosMascota.size;
         info.usuario_id = PlayerPrefs.GetInt("id_usuario");
+        info.foto_url = DatosMascota.foto_url;
 
         string json = JsonUtility.ToJson(info);
 
@@ -67,4 +68,5 @@ public class MascotaGatoJSON
     public string pelaje;
     public string size;
     public int usuario_id;
+    public string foto_url;
 }

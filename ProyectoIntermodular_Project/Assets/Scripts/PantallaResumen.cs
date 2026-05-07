@@ -31,6 +31,7 @@ public class PantallaResumen : MonoBehaviour
         datosEnvio.size = DatosMascota.size;
         datosEnvio.edad = DatosMascota.edad;
         datosEnvio.usuario_id = usuario_id;
+        datosEnvio.foto_url = DatosMascota.foto_url; // para cloudinary
 
         string json = JsonUtility.ToJson(datosEnvio);
 
@@ -64,4 +65,5 @@ public class MascotaFinalJSON
     public string size;
     public string edad;
     public int usuario_id;
+    public string foto_url; //para añadir también la foto de cloudinary
 }

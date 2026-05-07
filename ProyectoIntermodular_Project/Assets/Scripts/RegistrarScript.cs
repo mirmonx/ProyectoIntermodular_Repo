@@ -73,7 +73,7 @@ public class RegistrarScript : MonoBehaviour
             PlayerPrefs.Save();
 
             // Como es un registro nuevo, SEGURO que no tiene mascota
-            SceneManager.LoadScene("NombreMascota");
+            SceneManager.LoadScene("Login");
         }
         else
         {

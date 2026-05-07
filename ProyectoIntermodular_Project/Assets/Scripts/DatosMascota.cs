@@ -5,4 +5,5 @@ public static class DatosMascota
     public static string pelaje = "";
     public static string size = "";
     public static string edad = "";
+    public static string foto_url; // para cloudinary
 }

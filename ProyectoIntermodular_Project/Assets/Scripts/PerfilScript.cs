@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +12,7 @@ public class DatosPerfil
     public string mascota_nombre;
     public int mascota_id;
     public string edad;
+    public string foto_url;
 }
 
 public class PerfilScript : MonoBehaviour
@@ -18,11 +20,13 @@ public class PerfilScript : MonoBehaviour
     public TMP_Text textoUsuario;
     public TMP_Text textoMascota;
 
+    // AÑADIR ESTO
+    public RawImage fotoMascota;
+
     string urlBase = "http://localhost:8080/perfil/";
 
     void Start()
     {
-        // 1. Recuperamos el ID del usuario logueado
         int idGuardado = PlayerPrefs.GetInt("id_usuario");
 
         if (idGuardado != 0)
@@ -38,59 +42,94 @@ public class PerfilScript : MonoBehaviour
     IEnumerator CargarPerfil(int id)
     {
         UnityWebRequest request = UnityWebRequest.Get(urlBase + id);
+
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.Success)
         {
-            // 2. Leemos los datos del servidor
-            DatosPerfil datos = JsonUtility.FromJson<DatosPerfil>(request.downloadHandler.text);
+            DatosPerfil datos =
+                JsonUtility.FromJson<DatosPerfil>(
+                    request.downloadHandler.text
+                );
 
-            // 3. Actualizamos la interfaz
-            if (textoUsuario != null) textoUsuario.text = "¡Hola, " + datos.usuario_nombre + "!";
-            if (textoMascota != null) textoMascota.text = datos.mascota_nombre;
+            DatosMascota.foto_url = datos.foto_url;
 
-            // 4. Guardamos TODO en la clase estática DatosMascota
+            // DESCARGAR FOTO
+            if (!string.IsNullOrEmpty(datos.foto_url))
+            {
+                StartCoroutine(DescargarFoto(datos.foto_url));
+            }
+
+            if (textoUsuario != null)
+                textoUsuario.text =
+                    "¡Hola, " + datos.usuario_nombre + "!";
+
+            if (textoMascota != null)
+                textoMascota.text =
+                    datos.mascota_nombre;
+
             DatosMascota.nombre = datos.mascota_nombre;
 
-            // Si la edad viene nula de SQL, la convertimos en "" para que no de error
-            DatosMascota.edad = string.IsNullOrEmpty(datos.edad) ? "" : datos.edad;
+            DatosMascota.edad =
+                string.IsNullOrEmpty(datos.edad)
+                ? ""
+                : datos.edad;
 
-            // Guardamos el ID de la mascota para el UPDATE de la edad después
             PlayerPrefs.SetInt("mascota_id", datos.mascota_id);
-            PlayerPrefs.Save();
 
-            Debug.Log("Perfil cargado. Mascota: " + DatosMascota.nombre + " Edad: " + DatosMascota.edad);
+            PlayerPrefs.Save();
         }
         else
         {
-            Debug.LogError("Error al cargar perfil: " + request.error);
+            Debug.LogError(
+                "Error al cargar perfil: " + request.error
+            );
         }
     }
 
-    // Función vinculada al BOTÓN de la mascota
+    // NUEVA COROUTINE
+    IEnumerator DescargarFoto(string url)
+    {
+        UnityWebRequest requestFoto =
+            UnityWebRequestTexture.GetTexture(url);
+
+        yield return requestFoto.SendWebRequest();
+
+        if (requestFoto.result == UnityWebRequest.Result.Success)
+        {
+            Texture textura =
+                DownloadHandlerTexture.GetContent(requestFoto);
+
+            fotoMascota.texture = textura;
+        }
+        else
+        {
+            Debug.LogError(
+                "Error cargando foto: " +
+                requestFoto.error
+            );
+        }
+    }
+
     public void AbrirDetalleMascota()
     {
-        // 1. Forzamos que si es null sea una cadena vacía, y quitamos espacios
         string edadParaRevisar = "";
+
         if (DatosMascota.edad != null)
         {
-            edadParaRevisar = DatosMascota.edad.Trim().ToLower();
+            edadParaRevisar =
+                DatosMascota.edad.Trim().ToLower();
         }
 
-        Debug.Log("Intentando abrir detalle. Valor de edad: [" + edadParaRevisar + "]");
-
-        // 2. Comprobamos todas las formas en las que la edad puede estar "vacía"
         if (string.IsNullOrEmpty(edadParaRevisar) ||
             edadParaRevisar == "null" ||
             edadParaRevisar == "" ||
-            edadParaRevisar == "n/a") // Por si acaso pusiste N/A
+            edadParaRevisar == "n/a")
         {
-            Debug.Log("EDAD NO ENCONTRADA: Cargando escena de entrada de edad.");
             SceneManager.LoadScene("EdadMascota");
         }
         else
         {
-            Debug.Log("EDAD ENCONTRADA: Cargando Petfil.");
             SceneManager.LoadScene("Petfil");
         }
     }

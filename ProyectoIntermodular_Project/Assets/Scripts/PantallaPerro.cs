@@ -33,7 +33,8 @@ public class PantallaPerro : MonoBehaviour
         info.tipo_mascota = DatosMascota.tipo; // Corregido: tipo_mascota coincide con el backend
         info.pelaje = DatosMascota.pelaje;
         info.size = DatosMascota.size;
-        info.usuario_id = PlayerPrefs.GetInt("id_usuario"); // Corregido: nombre de PlayerPrefs consistente
+        info.usuario_id = PlayerPrefs.GetInt("id_usuario");
+        info.foto_url = DatosMascota.foto_url;
 
         string json = JsonUtility.ToJson(info);
 
@@ -61,13 +62,14 @@ public class PantallaPerro : MonoBehaviour
     }
 }
 
-// Clase auxiliar para el JSON (Asegúrate de que no esté repetida en otro archivo con el mismo nombre)
+// Clase  para el JSON
 [System.Serializable]
 public class MascotaPerroJSON
 {
     public string nombre;
-    public string tipo_mascota; // Coincide con la columna y el backend
+    public string tipo_mascota;
     public string pelaje;
     public string size;
-    public int usuario_id;      // Coincide con el backend
+    public int usuario_id;
+    public string foto_url;
 }
