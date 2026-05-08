@@ -13,6 +13,7 @@ public class DatosPerfil
     public int mascota_id;
     public string edad;
     public string foto_url;
+    public string foto_perfil;
 }
 
 public class PerfilScript : MonoBehaviour
@@ -21,6 +22,7 @@ public class PerfilScript : MonoBehaviour
     public TMP_Text textoMascota;
 
     // AÑADIR ESTO
+    public RawImage imagenPerfil;
     public RawImage fotoMascota;
 
     string urlBase = "http://localhost:8080/perfil/";
@@ -50,7 +52,12 @@ public class PerfilScript : MonoBehaviour
             DatosPerfil datos =
                 JsonUtility.FromJson<DatosPerfil>(
                     request.downloadHandler.text
+
                 );
+            Debug.Log(request.downloadHandler.text);
+
+            Debug.Log("URL FOTO PERFIL:");
+            Debug.Log(datos.foto_perfil);
 
             DatosMascota.foto_url = datos.foto_url;
 
@@ -58,6 +65,10 @@ public class PerfilScript : MonoBehaviour
             if (!string.IsNullOrEmpty(datos.foto_url))
             {
                 StartCoroutine(DescargarFoto(datos.foto_url));
+            }
+            if (!string.IsNullOrEmpty(datos.foto_perfil))
+            {
+                StartCoroutine(DescargarFotoPerfil(datos.foto_perfil));
             }
 
             if (textoUsuario != null)
@@ -106,6 +117,29 @@ public class PerfilScript : MonoBehaviour
         {
             Debug.LogError(
                 "Error cargando foto: " +
+                requestFoto.error
+            );
+        }
+    }
+
+    IEnumerator DescargarFotoPerfil(string url)
+    {
+        UnityWebRequest requestFoto =
+            UnityWebRequestTexture.GetTexture(url);
+
+        yield return requestFoto.SendWebRequest();
+
+        if (requestFoto.result == UnityWebRequest.Result.Success)
+        {
+            Texture textura =
+                DownloadHandlerTexture.GetContent(requestFoto);
+
+            imagenPerfil.texture = textura;
+        }
+        else
+        {
+            Debug.LogError(
+                "Error cargando foto perfil: " +
                 requestFoto.error
             );
         }

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Petfil | Guess Mew</title>
+
+    <link rel="stylesheet" href="estilos.css" />
+  </head>
+
+  <body>
+    <!-- NAV -->
+
+    <header class="barra-arriba">
+      <div class="logo">
+        <a href="index.html" class="logo">
+        <img src="img/logo.jpg" alt="Logo" />
+
+        <span>Guess Mew</span>
+      </div>
+
+      <nav class="menu">
+        <a href="perfil.html"> Volver </a>
+      </nav>
+    </header>
+
+    <!-- CONTENIDO -->
+
+    <section class="contenedor">
+      <!-- TARJETA -->
+
+      <div class="tarjeta-perfil">
+        <!-- FOTO -->
+
+        <div style="text-align: center; margin-bottom: 40px">
+          <img id="fotoMascota" src="img/Michi.png" class="foto-mascota" />
+
+          <h2 id="nombreMascota" style="margin-top: 20px">Mascota</h2>
+
+          <p id="edadMascota">Edad</p>
+        </div>
+
+        <!-- FILA -->
+
+        <div class="fila-edicion">
+          <!-- VACUNAS -->
+
+          <div class="bloque-edicion">
+            <h3>Vacunas 💉</h3>
+
+            <input type="text" id="inputVacuna" placeholder="Añadir vacuna" />
+
+            <button class="boton boton-principal" onclick="guardarVacuna()">
+              Añadir
+            </button>
+
+            <!-- LISTA -->
+
+            <div
+              id="listaVacunas"
+              style="margin-top: 20px; text-align: left; width: 100%"
+            ></div>
+          </div>
+
+          <!-- DESPARASITACIÓN -->
+
+          <div class="bloque-edicion">
+            <h3>Desparasitación 🩺</h3>
+
+            <input
+              type="text"
+              id="inputDesparasitacion"
+              placeholder="Añadir desparasitación"
+            />
+
+            <button
+              class="boton boton-principal"
+              onclick="guardarDesparasitacion()"
+            >
+              Añadir
+            </button>
+
+            <!-- LISTA -->
+
+            <div
+              id="listaDesparasitacion"
+              style="margin-top: 20px; text-align: left; width: 100%"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="js/petfil.js"></script>
+  </body>
+</html>

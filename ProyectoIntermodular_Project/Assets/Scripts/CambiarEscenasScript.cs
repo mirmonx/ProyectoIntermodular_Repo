@@ -63,4 +63,8 @@ public class CambiarEscenas : MonoBehaviour
         SceneManager.LoadScene("Petfil");
     }
 
+    public void Ir_EditarPerfil()
+    {
+        SceneManager.LoadScene("EditarPerfil");
+    }
 }

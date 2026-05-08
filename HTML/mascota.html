@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Crear mascota | Guess Mew</title>
+
+    <link rel="stylesheet" href="estilos.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <!-- NAV -->
+
+    <header class="barra-arriba">
+      <div class="logo">
+        <a href="index.html" class="logo">
+        <img src="img/logo.jpg" alt="Logo" />
+
+        <span>Guess Meow</span>
+      </div>
+
+      <nav class="menu">
+        <a href="index.html">Inicio</a>
+
+        <a href="perfil.html" class="activo">Perfil</a>
+
+        <a href="servicios.html">Servicios</a>
+
+        <a href="contacto.html">Contacto</a>
+      </nav>
+    </header>
+
+    <!-- CONTENIDO -->
+
+    <section class="contenedor">
+      <div class="tarjeta mascota-builder">
+        <h1 class="titulo">Crea tu mascota 🐾</h1>
+
+        <p class="subtitulo">
+          <label>Nombre mascota</label>
+
+          <input
+            type="text"
+            id="nombreMascota"
+            placeholder="Nombre de tu mascota"
+          />
+          Selecciona el tipo de mascota y añade una imagen.
+        </p>
+
+        <!-- TIPO -->
+
+        <label>Tipo de mascota</label>
+
+        <select id="tipo">
+          <option value="gato">🐱 Gato</option>
+
+          <option value="perro">🐶 Perro</option>
+        </select>
+
+        <!-- OPCIONES GATO -->
+
+        <div id="gatoBox">
+          <label>Tipo de pelaje</label>
+
+          <select id="pelaje">
+            <option>Calvo</option>
+
+            <option>Corto</option>
+
+            <option>Largo</option>
+          </select>
+        </div>
+
+        <!-- OPCIONES PERRO -->
+
+        <div id="perroBox" style="display: none">
+          <label>Tamaño del perro</label>
+
+          <select id="size">
+            <option>Pequeño</option>
+
+            <option>Mediano</option>
+
+            <option>Grande</option>
+          </select>
+        </div>
+
+        <!-- FOTO -->
+
+        <label>Subir imagen</label>
+
+        <input type="file" id="imagenInput" accept="image/*" />
+
+        <!-- PREVIEW -->
+
+        <div class="preview-container">
+          <img id="preview" />
+        </div>
+
+        <!-- BOTON -->
+
+        <button
+          class="boton boton-principal boton-full"
+          onclick="guardarMascota()"
+        >
+          Guardar mascota
+        </button>
+      </div>
+    </section>
+
+    <!-- SCRIPT -->
+
+    <script>
+      const tipo = document.getElementById("tipo");
+
+      const gatoBox = document.getElementById("gatoBox");
+
+      const perroBox = document.getElementById("perroBox");
+
+      tipo.addEventListener("change", () => {
+        if (tipo.value === "gato") {
+          gatoBox.style.display = "block";
+
+          perroBox.style.display = "none";
+        } else {
+          gatoBox.style.display = "none";
+
+          perroBox.style.display = "block";
+        }
+      });
+
+      // PREVIEW FOTO
+
+      const imagenInput = document.getElementById("imagenInput");
+
+      const preview = document.getElementById("preview");
+
+      imagenInput.addEventListener("change", function () {
+        const archivo = this.files[0];
+
+        if (archivo) {
+          preview.src = URL.createObjectURL(archivo);
+
+          preview.style.display = "block";
+        }
+      });
+    </script>
+    <script src="js/mascota.js"></script>
+  </body>
+</html>

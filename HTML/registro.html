@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Registro | Guess Mew</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="estilos.css" />
+  </head>
+
+  <body>
+    <!-- Barra arriba -->
+
+    <header class="barra-arriba">
+      <div class="logo">
+        <a href="index.html" class="logo">
+        <img src="img/logo.jpg" alt="Logo" />
+
+        <span>Guess Mew</span>
+      </div>
+
+      <!-- Menu -->
+
+      <nav class="menu">
+        <a href="index.html"> Inicio </a>
+
+        <a href="perfil.html"> Mascotas </a>
+
+        <a href="servicios.html"> Servicios </a>
+
+        <a href="contacto.html"> Contacto </a>
+      </nav>
+    </header>
+
+    <!-- Contenedor -->
+
+    <section class="contenedor">
+      <!-- Tarjeta registro -->
+
+      <div class="tarjeta">
+        <h2 class="titulo">Crear cuenta 🐾</h2>
+
+        <p class="subtitulo">
+          Regístrate para comenzar a gestionar el perfil de tus mascotas.
+        </p>
+
+        <!-- Formulario -->
+
+        <form>
+          <!-- Nombre -->
+
+          <label> Nombre completo </label>
+
+          <input type="text" id="nombre" placeholder="Introduce tu nombre" />
+
+          <!-- Correo -->
+
+          <label> Correo electrónico </label>
+
+          <input type="email" id="email" placeholder="Introduce tu correo" />
+
+          <!-- Contraseña -->
+
+          <label> Contraseña </label>
+
+          <input
+            type="password"
+            id="password"
+            placeholder="Crea una contraseña"
+          />
+
+          <!-- Confirmar -->
+
+          <label> Confirmar contraseña </label>
+
+          <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Repite la contraseña"
+          />
+
+          <!-- BOTON -->
+
+          <button
+            type="button"
+            onclick="registro()"
+            class="boton boton-principal"
+          >
+            Crear cuenta
+          </button>
+        </form>
+
+        <!-- Links -->
+
+        <div class="links">
+          <a href="login.html"> Ya tengo cuenta </a>
+
+          <a href="recovery.html"> He olvidado mi contraseña </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+
+    <footer>
+      <div class="footer-contenido">
+        <!-- Izquierda -->
+
+        <div>
+          <h3>Guess Meow</h3>
+
+          <p>Plataforma creada para amantes de mascotas y cuidados animales.</p>
+        </div>
+
+        <!-- Centro -->
+
+        <div>
+          <h4>Proyecto</h4>
+
+          <a href="index.html"> Inicio </a>
+
+          <a href="servicios.html"> Servicios </a>
+
+          <a href="demo.html"> Video demo </a>
+        </div>
+
+        <!-- Derecha -->
+
+        <div>
+          <h4>Contacto</h4>
+
+          <a href="mailto:crtode@alumnatflorida.es">crtode@alumnatflorida.es</a>
+
+          <a href="https://github.com/crtode/PI_Github" target="_blank">
+            GitHub
+          </a>
+        </div>
+      </div>
+    </footer>
+    <script src="js/registro.js"></script>
+  </body>
+</html>

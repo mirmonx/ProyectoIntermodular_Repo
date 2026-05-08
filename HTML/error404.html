@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Error 404 | Guess Mew</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="estilos.css" />
+
+    <!-- Iconos -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <!-- Pantalla error -->
+
+    <section
+      style="
+        width: 100%;
+        min-height: 100vh;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 40px;
+      "
+    >
+      <!-- Tarjeta -->
+
+      <div class="tarjeta" style="max-width: 900px; text-align: center">
+        <!-- Numero error -->
+
+        <h1
+          style="
+            font-size: 140px;
+            margin-bottom: 10px;
+
+            background: linear-gradient(135deg, #7c5cff, #ff4fa3);
+
+            background-clip: text;
+            -webkit-background-clip: text;
+
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+          "
+        >
+          404
+        </h1>
+
+        <!-- Titulo -->
+
+        <h2 class="titulo">🐱 El gato ha roto esta página</h2>
+
+        <!-- Texto -->
+
+        <p class="subtitulo" style="max-width: 650px; margin: auto auto 30px">
+          Parece que la página que intentas visitar no existe o se ha escapado
+          detrás del sofá.
+        </p>
+
+        <!-- Imagen -->
+
+        <img
+          src="img/gato.png"
+          alt="Gato"
+          style="
+            width: 240px;
+            margin: 30px auto;
+            display: block;
+
+            animation: flotar 4s infinite ease-in-out;
+          "
+        />
+
+        <!-- Botones -->
+
+        <div
+          class="botones-principales"
+          style="justify-content: center; flex-wrap: wrap"
+        >
+          <!-- Volver -->
+
+          <a href="index.html" class="boton boton-principal">
+            <i class="fa-solid fa-house"></i>
+
+            Volver al inicio
+          </a>
+
+          <!-- Perfil -->
+
+          <a href="perfil.html" class="boton boton-secundario">
+            <i class="fa-solid fa-paw"></i>
+
+            Ir al perfil
+          </a>
+        </div>
+
+        <!-- Frase graciosa -->
+
+        <div
+          style="
+            margin-top: 40px;
+
+            background: rgba(255, 255, 255, 0.55);
+
+            padding: 25px;
+
+            border-radius: 24px;
+          "
+        >
+          <h3 style="margin-bottom: 10px">😼 Consejo del gato</h3>
+
+          <p>“Si no encuentras la página, probablemente esté durmiendo.”</p>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

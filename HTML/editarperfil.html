@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Editar perfil | Guess Mew</title>
+
+    <link rel="stylesheet" href="estilos.css" />
+  </head>
+
+  <body>
+    <!-- NAV -->
+
+    <header class="barra-arriba">
+      <div class="logo">
+        <a href="index.html" class="logo">
+        <img src="img/logo.jpg" alt="Logo" />
+
+        <span>Guess Mew</span>
+      </div>
+
+      <nav class="menu">
+        <a href="index.html"> Inicio </a>
+
+        <a href="perfil.html"> Perfil </a>
+
+        <a href="editarPerfil.html" class="activo"> Editar perfil </a>
+      </nav>
+    </header>
+
+    <!-- CONTENEDOR -->
+
+    <section class="contenedor">
+      <div class="tarjeta">
+        <h2 class="titulo">Editar perfil 🐾</h2>
+
+        <!-- FOTO PERFIL -->
+        <div class="fila-edicion">
+          <!-- FOTO PERFIL -->
+
+          <div class="bloque-edicion">
+            <h3>Foto de perfil</h3>
+
+            <div class="preview-container">
+              <img
+                id="previewPerfil"
+                src="img/avatar.png"
+                class="foto-perfil"
+              />
+            </div>
+
+            <input type="file" id="inputFotoPerfil" />
+          </div>
+
+          <!-- NOMBRE USUARIO -->
+
+          <div class="bloque-edicion">
+            <h3>Nombre usuario</h3>
+
+            <input
+              type="text"
+              id="nombreUsuario"
+              placeholder="Nombre usuario"
+            />
+          </div>
+        </div>
+
+        <!-- FOTO MASCOTA -->
+
+        <div class="fila-edicion">
+          <!-- FOTO MASCOTA -->
+
+          <div class="bloque-edicion">
+            <h3>Foto mascota</h3>
+
+            <div class="preview-container">
+              <img
+                id="previewMascota"
+                src="img/Michi.png"
+                class="foto-mascota"
+              />
+            </div>
+
+            <input type="file" id="inputFotoMascota" />
+          </div>
+
+          <!-- NOMBRE MASCOTA -->
+
+          <div class="bloque-edicion">
+            <h3>Nombre mascota</h3>
+
+            <input
+              type="text"
+              id="nombreMascota"
+              placeholder="Nombre mascota"
+            />
+          </div>
+        </div>
+
+        <!-- BOTÓN -->
+
+        <button
+          class="boton boton-principal boton-full"
+          onclick="guardarPerfil()"
+        >
+          Guardar cambios
+        </button>
+      </div>
+    </section>
+
+    <script src="js/editarPerfil.js"></script>
+  </body>
+</html>
