@@ -9,10 +9,7 @@ const upload = multer({ dest: "uploads/" });
 const cloudinary = require("../config/cloudinary");
 const fs = require("fs");
 
-// ======================================================
 // LOGIN
-// ======================================================
-
 router.post("/login", (req, res) => {
   const { email, password } = req.body;
 
@@ -68,10 +65,7 @@ router.post("/login", (req, res) => {
   });
 });
 
-// ======================================================
 // REGISTRO
-// ======================================================
-
 router.post("/registro", (req, res) => {
   const { nombre, email, password } = req.body;
 
@@ -97,10 +91,7 @@ router.post("/registro", (req, res) => {
   });
 });
 
-// ======================================================
 // PERFIL
-// ======================================================
-
 router.get("/perfil/:id", (req, res) => {
   const userId = req.params.id;
 
@@ -141,10 +132,7 @@ router.get("/perfil/:id", (req, res) => {
   });
 });
 
-// ======================================================
 // GUARDAR MASCOTA
-// ======================================================
-
 router.post("/guardar-mascota", (req, res) => {
   const { nombre, tipo_mascota, usuario_id, pelaje, size, edad, foto_url } =
     req.body;
@@ -183,10 +171,7 @@ router.post("/guardar-mascota", (req, res) => {
   );
 });
 
-// ======================================================
 // ACTUALIZAR EDAD
-// ======================================================
-
 router.post("/actualizar-edad", (req, res) => {
   const { id, edad } = req.body;
 
@@ -207,10 +192,7 @@ router.post("/actualizar-edad", (req, res) => {
   });
 });
 
-// ======================================================
 // SUBIR FOTO
-// ======================================================
-
 router.post("/subir-foto", upload.single("imagen"), async (req, res) => {
   try {
     const resultado = await cloudinary.uploader.upload(req.file.path);
@@ -236,10 +218,7 @@ router.post("/subir-foto", upload.single("imagen"), async (req, res) => {
   }
 });
 
-// ======================================================
 // EDITAR PERFIL
-// ======================================================
-
 router.post("/editarPerfil", (req, res) => {
   console.log("DATOS RECIBIDOS EDITAR PERFIL:");
 
@@ -256,10 +235,7 @@ router.post("/editarPerfil", (req, res) => {
   console.log("FOTO PERFIL:");
   console.log(foto_perfil);
 
-  // ==================================================
   // ACTUALIZAR USUARIO
-  // ==================================================
-
   const sqlUsuario = `
     UPDATE usuarios
     SET 
@@ -277,10 +253,7 @@ router.post("/editarPerfil", (req, res) => {
       });
     }
 
-    // ==============================================
     // ACTUALIZAR MASCOTA
-    // ==============================================
-
     const sqlMascota = `
         UPDATE mascotas
         SET
@@ -306,10 +279,8 @@ router.post("/editarPerfil", (req, res) => {
     });
   });
 });
-// ======================================================
-// GUARDAR VACUNA
-// ======================================================
 
+// GUARDAR VACUNA
 router.post("/guardar-vacuna", (req, res) => {
   const { id_mascota, texto } = req.body;
 
@@ -360,10 +331,7 @@ router.post("/guardar-vacuna", (req, res) => {
   });
 });
 
-// ======================================================
 // CARGAR VACUNAS
-// ======================================================
-
 router.get("/vacunas/:id", (req, res) => {
   const idMascota = req.params.id;
 
@@ -388,10 +356,7 @@ router.get("/vacunas/:id", (req, res) => {
   });
 });
 
-// ======================================================
 // GUARDAR DESPARASITACIÓN
-// ======================================================
-
 router.post("/guardar-desparasitacion", (req, res) => {
   const { id_mascota, texto } = req.body;
 
@@ -440,10 +405,7 @@ router.post("/guardar-desparasitacion", (req, res) => {
   });
 });
 
-// ======================================================
 // CARGAR DESPARASITACIÓN
-// ======================================================
-
 router.get("/desparasitacion/:id", (req, res) => {
   const idMascota = req.params.id;
 

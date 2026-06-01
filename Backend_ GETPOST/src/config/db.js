@@ -1,16 +1,22 @@
-const mysql = require("mysql");
+require("dotenv").config();
+
+const mysql = require("mysql2");
 
 const db = mysql.createConnection({
-  host: "sql7.freesqldatabase.com",
-  user: "sql7825597",
-  password: "WAbgVm4Lds",
-  database: "sql7825597",
-  port: 3306,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT,
+
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 db.connect((err) => {
   if (err) console.log("Error conexión:", err);
-  else console.log("Conectado a MySQL");
+  else console.log("Conectado a Aiven MySQL");
 });
 
-module.exports = db; // Esto permite que otros archivos usen la conexión
+module.exports = db;

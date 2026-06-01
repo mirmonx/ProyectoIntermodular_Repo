@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express"); //creo el servidor
 const app = express(); //creo la aplicacion
 const morgan = require("morgan"); //para ver por consola
